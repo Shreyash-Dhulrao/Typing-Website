@@ -81,15 +81,12 @@ const getRandomText = () => {
 }
 
 const TypingSpeedTest = (props) => {
-    const [randomText, setRandomText] = useState(getRandomText());
-    const [userInput, setUserInput] = useState('');
     const [startTime, setStartTime] = useState(null);
     const [typingSpeed, setTypingSpeed] = useState(0);
     const [timeLimit, setTimeLimit] = useState(null);
     const [timerSeconds, setTimerSeconds] = useState(0);
     const [timerVisible, setTimerVisible] = useState(false);
     const [topSpeed, setTopSpeed] = useState(0);
-    const [topSpeedsHistory, setTopSpeedsHistory] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [highlightError, setHighlightError] = useState(false);
     const [timeOver, setTimeOver] = useState(false);
@@ -99,6 +96,34 @@ const TypingSpeedTest = (props) => {
     const [timeDuration, setTimeDuration] = useState(0)
     const inputRef = useRef(null);
     const [Disabled, setDisabled] = useState(false)
+    
+    const [randomText, setRandomText] = useState(() => {
+        const savedText = localStorage.getItem('randomText');
+        return savedText !== null ? savedText : getRandomText();
+    });
+    
+    useEffect(() => {
+        localStorage.setItem('randomText', randomText);
+    }, [randomText]);
+
+    const [userInput, setUserInput] = useState(() => {
+        const savedInput = localStorage.getItem('userInput');
+        return savedInput !== null ? savedInput : '';
+    });
+    
+    useEffect(() => {
+        localStorage.setItem('userInput', userInput);
+    }, [userInput]);
+
+    const [topSpeedsHistory, setTopSpeedsHistory] = useState(() => {
+        const storedHistory = localStorage.getItem('topSpeedsHistory');
+        return storedHistory ? JSON.parse(storedHistory) : [];
+    });
+    
+    useEffect(() => {
+        localStorage.setItem('topSpeedsHistory', JSON.stringify(topSpeedsHistory));
+    }, [topSpeedsHistory]);
+    
 
     const generateRandomText = () => {
         setRandomText(getRandomText());
@@ -330,6 +355,8 @@ const TypingSpeedTest = (props) => {
         fetchData();
       }, []);
 
+      
+
     return (
         <div className={`w-1/2 mx-auto h-full min-h-screen pt-20 p-4 bg-${props.bgCol} text-${props.text} funky`}>
             <LeftAdComponent bgCol={props.ads}/>
@@ -416,7 +443,6 @@ const TypingSpeedTest = (props) => {
                 ) : (
                     <p className="text-center">No top speeds recorded yet.</p>
                 )}
-
             </div>
             <RightAdComponent bgCol={props.ads} />
         </div>

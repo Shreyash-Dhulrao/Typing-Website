@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import keyB from './styling material/Favicon (2).png'
 import { ReactComponent as MySvg } from './styling material/A (1).svg'
+import { ReactComponent as Cart } from './styling material/Cart.svg'
+
+
 import './style.css'
 
 const Navbar = (props) => {
@@ -79,8 +82,8 @@ const Navbar = (props) => {
 
                         </li>
                         <li><Link to="/Challenges" className={`text-${props.text} hover:border-b-4  py-5 px-3 border-${props.text} ${props.b} links font`}>Challenges</Link></li>
-                        <li><Link to="/Dashboard" className={`text-${props.text} hover:border-b-4  py-5 px-3 border-${props.text} ${props.c} links font`}>Dashboard</Link></li>
                         <li><Link to="/help" className={`text-${props.text} hover:border-b-4  py-5 px-3 border-${props.text} ${props.d} links font`}>Help</Link></li>
+                        <li><Link to="/Shopping" ><Cart className={`text-${props.text}`} width='22px' /></Link></li>
                         <li><div >
                             {isLoggedIn ? (
                                 <div>

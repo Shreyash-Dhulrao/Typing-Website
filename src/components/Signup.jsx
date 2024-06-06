@@ -85,13 +85,13 @@ const SignupPage = (props) => {
 
                     </div>
                     <div className="mb-6">
-                        <button type="submit" className="w-full py-3 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300">Sign up</button>
+                        <button type="submit" className={`px-4 py-2 bg-${props.btns} text-white rounded-md focus:outline-none w-full`}>Sign up</button>
                     </div>
                     <p className="text-sm  text-center">Already have an account? <Link to="/login" className={`px-2 text-${props.btns} hover:text-${props.font} `}>Sign in</Link></p>
-                <div className="mt-4 flex justify-center items-center">
+                    <div className="mt-4 flex justify-center items-center">
                     <span className="mr-2 text-sm ">or</span>
-                    <button type="button" className={`flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-${props.bgCol}`}>
-                        <FaGoogle className={`h-5 w-5 mr-2 text-${props.text}  `} />
+                    <button type="button" className={`flex justify-center items-center px-4 py-3  rounded-md shadow-sm text-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-${props.bgCol}`}>
+                        <FaGoogle className={`h-5 w-5 mr-2 text-${props.btns}  `} />
                         Sign up with Google
                     </button>
                 </div>

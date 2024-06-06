@@ -8,11 +8,12 @@ import Basics from './components/Basics'
 import Challenges from './components/Challenges'
 import Speedtyping from './components/Challenges/SpeedTyping'
 import Accuracy from './components/Challenges/Accuracy'
-import Dashboard from './components/Dashboard'
+import Shopping from './components/Shopping'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MechKey from './components/MechKey';
 
 function App() {
   const [bgCol, setBgCol] = useState('zinc-200')
@@ -75,8 +76,13 @@ function App() {
       element: <><Navbar togglebtn={togglebtn} bgCol={bgCol} text={text}  col={col} btns={Buttons} text2={text2}/><Accuracy bgCol2={bgCol2} bgCol={bgCol} text={text}  col={bgCol1} btns={Buttons}/></>
     },
     {
-      path: '/Dashboard',
-      element: <><Navbar togglebtn={togglebtn} bgCol={bgCol} text={text}  col={col} btns={Buttons} text2={text2}/><Dashboard/></>
+      path: '/Shopping',
+      element: <><Navbar togglebtn={togglebtn} bgCol={bgCol} text={text}  col={col} btns={Buttons} text2={text2}/><Shopping bgCol={bgCol} text={text}  col={bgCol1} bgcol2={bgCol2} btns={Buttons} /></>
+    
+    },
+    {
+      path: '/MechKey',
+      element: <><Navbar togglebtn={togglebtn} bgCol={bgCol} text={text}  col={col} btns={Buttons} text2={text2}/><MechKey bgCol={bgCol} text={text}  col={bgCol1} bgcol2={bgCol2} btns={Buttons} /></>
     
     },
     {

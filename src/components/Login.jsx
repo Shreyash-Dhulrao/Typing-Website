@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './styling material/Login.png';
 import Signup from './styling material/Icons/signup.png';
-import { FiMail, FiLock } from 'react-icons/fi'; // Import icons from react-icons library
+import { FaUser, FaLock, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons from react-icons library
+
 
 const LoginPage = (props) => {
   const [formData, setFormData] = useState({
@@ -12,11 +13,16 @@ const LoginPage = (props) => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true); // State to track whether login or signup form should be displayed
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(prevState => !prevState);
   };
 
   const handleSubmit = async (e) => {
@@ -70,51 +76,48 @@ const LoginPage = (props) => {
           <h2 className="text-4xl mb-8 text-center funky">{isLogin ? 'Login' : 'Signup'}</h2>
           {/* Email Input */}
           <div className="mb-4">
-            <div className="flex ">
-              <FiMail className={`h-6 w-6 mr-2 text-${props.text} opacity-80`} />
-              <label className="block mb-2" htmlFor="email">
-                Email
-              </label>
+            <div className="mb-4 relative ">
+              <FaUser className="absolute inset-y-0 left-0 pl-3 flex items-center h-3/5 w-7 pt-1 " />
+              <input
+                className={`mt-1 p-3 pl-10 block w-full  rounded-md shadow-md  outline-none bg-${props.bgCol}`}
+                id="email"
+                type="email"
+                placeholder="Username or Email Id"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {!errors.email && <p className="invisible">Error message placeholder</p>}
+              {errors.email && <p className="text-red-500 text-xs pt-2">{errors.email}</p>}
             </div>
-            <input
-              className={`shadow appearance-none rounded w-full py-2 px-3 text-${props.text} bg-${props.bgCol}  leading-tight focus:outline-none focus:shadow-outline ${
-                errors.email ? 'border-red-500' : ''
-              }`}
-              id="email"
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {!errors.email && <p className="invisible">Error message placeholder</p>}
-            {errors.email && <p className="text-red-500 text-xs pt-2">{errors.email}</p>}
           </div>
           {/* Password Input */}
           <div className="mb-6">
-            <div className="flex ">
-              <FiLock className={`h-6 w-6 mr-2 text-${props.text} opacity-80`} />
-              <label className="block mb-2" htmlFor="password">
-                Password
-              </label>
+            <div className="mb-4 relative">
+              <FaLock className="absolute inset-y-0 left-0 pl-3 flex items-center h-3/5 w-7 pt-1 " />
+              <input
+                className={`mt-1 p-3 pl-10 block w-full  rounded-md shadow-md  outline-none bg-${props.bgCol}`}
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center h-full cursor-pointer"
+                onClick={handleTogglePasswordVisibility}
+              >
+                {showPassword ? <FaEyeSlash className="relative inset-y-0 bg-blue-800  left-0  h-full w-6 pt-1 " /> : <FaEye className="absolute inset-y-0 left-0 flex items-center h-3/5 w-6 pt-1 " />}
+              </div>
+              {!errors.password && <p className="invisible">Error message placeholder</p>}
+              {errors.password && <p className="text-red-500 text-xs pt-2">{errors.password}</p>}
             </div>
-            <input
-              className={`shadow appearance-none rounded w-full py-2 px-3 text-${props.text} bg-${props.bgCol} leading-tight focus:outline-none focus:shadow-outline ${
-                errors.password ? 'border-red-500' : ''
-              }`}
-              id="password"
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {!errors.password && <p className="invisible">Error message placeholder</p>}
-            {errors.password && <p className="text-red-500 text-xs pt-2">{errors.password}</p>}
+
           </div>
-          <div className="flex items-center justify-between">
+          <div className="items-center text-center justify-between">
             <button
-              className={`px-4 py-2 bg-${props.btns} text-white rounded-md focus:outline-none`}
+              className={`px-4 py-2 mb-4 bg-${props.btns} text-white rounded-md focus:outline-none w-full`}
               type="submit"
               disabled={loading}
             >
@@ -123,6 +126,13 @@ const LoginPage = (props) => {
             <p>
               Don't have an account? <Link to='/Signup' className={`px-2 text-${props.btns} hover:text-${props.font}  `}  >Register</Link>
             </p>
+          </div>
+          <div className="mt-4 flex justify-center items-center">
+            <span className="mr-2 text-sm ">or</span>
+            <button type="button" className={`flex justify-center items-center px-4 py-3  rounded-md shadow-sm text-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-${props.bgCol}`}>
+              <FaGoogle className={`h-5 w-5 mr-2 text-${props.btns}  `} />
+              Sign in with Google
+            </button>
           </div>
         </form>
       </div>
